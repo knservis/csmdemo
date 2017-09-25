@@ -21,6 +21,7 @@ where p the player, g the game and i the influencing player.
 From the player data we will be calculating the PIS score based on the following mapping for event types:
 
 | Event type | Influence points | Player ID influenced (p) | Player ID influencing (i) |
+| -----------|------------------|--------------------------|---------------------------|
 | AchievementLikedEvent | +1 | achievement_owner_id | follower_id |
 | AchievementCommentedEvent | +2 | achievement_owner_id | follower_id |
 | AchievementSharedEvent | +2 | follower_id | achievement_owner_id |
@@ -32,7 +33,9 @@ Recent occurrences will have a 1.5 weight when their score is calculated where r
 ### Game data (PGL)
 
 From the game data we will be calculating the PGL score using the following mapping for event types:
+
 | Event type| Score | Player ID (i or p) | Game (g) |
+| ----------|-------|--------------------|----------|
 | GameRoundStarted | +1 | user_id | game_id |
 | GameRoundEnded | +1 | user_id | game_id |
 | GameRoundDropped | -20 | user_id | game_id |
