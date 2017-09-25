@@ -99,13 +99,14 @@ object LeaderboardMain {
     println("Starting..")
     println(FigletFont.convertOneLine(s"Influence Leaderboard (${APP_NAME})"))
     val argsParse = new LeaderboardMainCmdParse(args)
-    val outputPath          = argsParse.outputPath
+    val outputPath          = argsParse.outputPath()
     val appConf =
       LeaderboardMainConf(playerDataInputPath = argsParse.playerDataInputPath(),
                           gameDataInputPath = argsParse.gameDataInputPath())
     val ss               = SparkSession.builder.config(sparkConfig).getOrCreate()
     val influenza = CalculateInfluenceLeadebBoard(ss, appConf)
-    influenza.coughOutResults
-
+    val res = influenza.coughOutResults
+    res.write.format("json").save(outputPath)
+    ss.close()
   }
 }

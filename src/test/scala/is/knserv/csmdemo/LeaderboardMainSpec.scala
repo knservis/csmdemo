@@ -37,5 +37,6 @@ class LeaderboardMainSpec extends FlatSpec with Matchers {
     )
 
     res should equal(expectedResult)
+    ss.close()
   }
 }
